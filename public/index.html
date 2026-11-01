@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080, height=1920, initial-scale=1.0" />
+  <title>Thánh Đường Nguyện Ước Online - TikTok Live 9:16</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div id="stage" class="sanctuary-stage theme-night">
+    <!-- Full-Bleed 2.5D Cathedral Architecture & Volumetric Lighting -->
+    <div class="cathedral-bg">
+      <div class="sanctuary-art-bg"></div>
+      <div class="theme-color-overlay"></div>
+
+      <!-- Volumetric Sunbeams from Stained Glass Windows -->
+      <div class="god-rays">
+        <div class="ray ray-1"></div>
+        <div class="ray ray-2"></div>
+        <div class="ray ray-3"></div>
+      </div>
+
+      <!-- Warm Golden Sanctuary Altar Glow at Center-Bottom -->
+      <div class="altar-ambient-glow"></div>
+    </div>
+
+    <!-- Interactive Particle, Meteor & Peace Dove Canvas -->
+    <canvas id="fx-canvas" width="1080" height="1920"></canvas>
+
+    <!-- Compact Translucent Top HUD -->
+    <header class="top-hud">
+      <div class="hud-header-row">
+        <div class="title-block">
+          <div class="live-badge">
+            <span class="pulse-dot"></span>
+            <span>TRỰC TIẾP CẦU NGUYỆN 24/7</span>
+          </div>
+          <h1 id="channel-title">THÁNH ĐƯỜNG NGUYỆN ƯỚC ONLINE</h1>
+          <p class="subtitle">Bình luận lời nguyện ước • Gõ 1, 2, 3 nhận thông điệp riêng • Follow nhận Nến Vàng 🙏</p>
+        </div>
+
+        <!-- Swinging Golden Church Bell -->
+        <div id="church-bell-wrap" class="church-bell-wrap" title="Click hoặc Thả tim để rung chuông">
+          <div id="bell-ripple" class="bell-ripple"></div>
+          <div id="church-bell" class="church-bell">
+            <svg viewBox="0 0 100 100" width="66" height="66">
+              <defs>
+                <linearGradient id="bellGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#fef08a"/>
+                  <stop offset="50%" stop-color="#f59e0b"/>
+                  <stop offset="100%" stop-color="#92400e"/>
+                </linearGradient>
+              </defs>
+              <path d="M42 12 H58 V20 H42 Z" fill="#fde047"/>
+              <path d="M50 18 C28 18 22 40 20 66 L12 76 H88 L80 66 C78 40 72 18 50 18 Z" fill="url(#bellGrad)" stroke="#fef9c3" stroke-width="2.5"/>
+              <circle cx="50" cy="81" r="8" fill="#fbbf24"/>
+            </svg>
+          </div>
+          <span class="bell-label">Thả Tim Rung Chuông</span>
+        </div>
+      </div>
+
+      <!-- VIP Pinned Prayer Throne (Competitive Gift Hook!) -->
+      <div id="vip-throne-banner" class="vip-throne-banner">
+        <img id="vip-avatar" class="vip-avatar" src="" alt="VIP" />
+        <div class="vip-info">
+          <div class="vip-top-line">
+            <span class="vip-crown-tag">👑 NGÔI VỊ ÂN NHÂN VIP:</span>
+            <strong id="vip-name">Chưa có Ân Nhân VIP</strong>
+            <span id="vip-gift-badge" class="vip-gift-badge">🌹 Tặng 1 Hoa Hồng để ghim lời nguyện của bạn lên đây!</span>
+          </div>
+          <div id="vip-prayer-text" class="vip-prayer-text">
+            “Nguyện xin hồng ân, sức khỏe và bình an đến với mọi người trong phòng Live đêm nay 🙏”
+          </div>
+        </div>
+      </div>
+
+      <!-- Sleek Miracle Progress Ribbon -->
+      <div class="miracle-ribbon">
+        <div class="miracle-bar-header">
+          <span class="miracle-title">✨ TÍCH LŨY PHÉP LÀNH TOÀN PHÒNG (Thả Tim & Bình Luận đạt 100% nổ Mưa Hồng Ân)</span>
+          <span id="miracle-percent" class="miracle-percent">0% • Đã mở: 0 lần</span>
+        </div>
+        <div class="miracle-track">
+          <div id="miracle-fill" class="miracle-fill" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <!-- Floating Scripture Verse -->
+      <div id="scripture-box" class="scripture-floating">
+        <blockquote id="scripture-text">
+          “Hãy xin thì sẽ được, hãy tìm thì sẽ thấy, hãy gõ cửa thì sẽ mở cho.”
+        </blockquote>
+        <cite id="scripture-source">— Ma-thi-ơ 7:7 —</cite>
+      </div>
+    </header>
+
+    <!-- Upper Corner Floating HUD: Left Leaderboard & Interactive Prompts + Right Gift Menu -->
+    <div class="floating-corners">
+      <!-- Left HUD: Top 5 Leaderboard + 1-2-3 Comment Prompts -->
+      <aside class="left-hud-col">
+        <div class="compact-leaderboard">
+          <div class="compact-panel-title">👑 BẢNG VÀNG ÂN PHÚC</div>
+          <ul id="leaderboard-list" class="leaderboard-list"></ul>
+        </div>
+
+        <div class="interactive-guide-card">
+          <div class="guide-card-title">💬 GÕ PHÍM NHẬN THÔNG ĐIỆP RIÊNG</div>
+          <div class="prompt-row"><span class="key-badge">Gõ 1</span> <span>Xin vía <strong>Bình An Tâm Hồn</strong> (Nến Ngọc)</span></div>
+          <div class="prompt-row"><span class="key-badge rose">Gõ 2</span> <span>Cầu <strong>Sức Khỏe Cha Mẹ</strong> (Nến Hồng)</span></div>
+          <div class="prompt-row"><span class="key-badge blue">Gõ 3</span> <span>Cầu <strong>Công Việc & Thi Cử</strong> (Nến Lam)</span></div>
+          <div class="prompt-row"><span class="key-badge gold">+Follow</span> <span>Ghi Sổ Vàng + <strong>Tặng 1 Nến Vàng</strong></span></div>
+        </div>
+      </aside>
+
+      <!-- Right HUD: Mini Stats + Gift Privilege Menu -->
+      <aside class="right-mini-hud">
+        <div class="mini-stats-row">
+          <div class="mini-stat-box">
+            <span>✨ Phước Lành</span>
+            <strong id="stat-blessings">0</strong>
+          </div>
+          <div class="mini-stat-box">
+            <span>🕯️ Nến Sáng</span>
+            <strong id="stat-candles">0</strong>
+          </div>
+          <div class="mini-stat-box">
+            <span>🔔 Chuông</span>
+            <strong id="stat-bells">0</strong>
+          </div>
+        </div>
+
+        <!-- Gift Privilege Menu -->
+        <div class="gift-menu-card">
+          <div class="guide-card-title">🌹 ĐẶC QUYỀN DÂNG LỄ VẬT</div>
+          <div class="gift-tier-row">
+            <span class="gift-icon">🌹</span>
+            <div>
+              <strong>Hoa Hồng (1 xu):</strong>
+              <p>Thắp Nến Vàng + Ghim lên Ngôi VIP + AI đọc tên ngay</p>
+            </div>
+          </div>
+          <div class="gift-tier-row">
+            <span class="gift-icon">💝</span>
+            <div>
+              <strong>Lễ Vật (10+ xu):</strong>
+              <p>Hào Quang Thánh Giá + Đàn Bồ Câu Trắng</p>
+            </div>
+          </div>
+          <div class="gift-tier-row">
+            <span class="gift-icon">👑</span>
+            <div>
+              <strong>Đại Lễ Vật (50+ xu):</strong>
+              <p>Nổ Mưa Sao Băng 100% + Đại Nến Hoàng Kim</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="recent-mini-box">
+          <div class="recent-mini-title">📜 NGUYỆN ƯỚC MỚI NHẤT</div>
+          <div id="recent-prayers-list" class="recent-prayers-list"></div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Like Combo Floating Badges (Fly up toward the Bell) -->
+    <div id="like-combo-container" class="like-combo-container"></div>
+
+    <!-- Central Open Sanctuary Nave: Winged Prayer Lanterns Ascend Here -->
+    <div id="floating-wishes-container" class="floating-wishes-container"></div>
+
+    <!-- Divine Gift / Follow / Full-Room Miracle Announcement Modal Overlay -->
+    <div id="gift-blessing-modal" class="gift-blessing-modal hidden">
+      <div class="gift-halo"></div>
+      <div class="gift-card-inner">
+        <div id="gift-crown" class="gift-crown">🕊️ HỒNG ÂN THÁNH ĐƯỜNG 🕊️</div>
+        <img id="gift-avatar" class="gift-avatar" src="" alt="avatar" />
+        <div id="gift-username" class="gift-username">Ân Nhân</div>
+        <div id="gift-detail" class="gift-detail">Đã dâng Nến Vàng Cầu Nguyện</div>
+        <p id="gift-blessing-text" class="gift-blessing-text">
+          Nguyện xin hồng ân rực rỡ và bình an viên mãn luôn ở cùng bạn!
+        </p>
+      </div>
+    </div>
+
+    <!-- Sacred Sanctuary Altar & 3-Tier Votive Candle Stand -->
+    <section class="altar-section">
+      <!-- Central Golden Cross & Sunburst Monstrance on the Altar -->
+      <div class="altar-centerpiece">
+        <div class="sunburst-halo"></div>
+        <svg class="monstrance-svg" viewBox="0 0 200 220" width="155" height="170">
+          <defs>
+            <linearGradient id="royalGold" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#fffbeb"/>
+              <stop offset="40%" stop-color="#fde047"/>
+              <stop offset="80%" stop-color="#f59e0b"/>
+              <stop offset="100%" stop-color="#92400e"/>
+            </linearGradient>
+          </defs>
+          <g stroke="url(#royalGold)" stroke-width="3" opacity="0.85">
+            <line x1="100" y1="10" x2="100" y2="150"/>
+            <line x1="30" y1="80" x2="170" y2="80"/>
+            <line x1="50" y1="30" x2="150" y2="130"/>
+            <line x1="150" y1="30" x2="50" y2="130"/>
+            <line x1="68" y1="16" x2="132" y2="144"/>
+            <line x1="132" y1="16" x2="68" y2="144"/>
+            <line x1="36" y1="50" x2="164" y2="110"/>
+            <line x1="164" y1="50" x2="36" y2="110"/>
+          </g>
+          <circle cx="100" cy="80" r="36" fill="none" stroke="url(#royalGold)" stroke-width="4"/>
+          <path d="M90 18 H110 V66 H148 V86 H110 V172 H90 V86 H52 V66 H90 Z"
+                fill="url(#royalGold)" stroke="#ffffff" stroke-width="2"/>
+          <path d="M64 172 H136 L152 198 H48 Z" fill="url(#royalGold)" stroke="#fef08a" stroke-width="2"/>
+        </svg>
+      </div>
+
+      <div class="altar-title-banner">
+        <span>🕯️ ĐÀI NẾN CẦU NGUYỆN • GÕ 1, 2, 3 HOẶC BÌNH LUẬN ĐỂ THẮP NẾN CỦA BẠN 🕯️</span>
+      </div>
+
+      <div class="altar-tiers">
+        <div id="candle-row-top" class="candle-row row-top"></div>
+        <div id="candle-row-mid" class="candle-row row-mid"></div>
+        <div id="candle-row-bot" class="candle-row row-bot"></div>
+      </div>
+
+      <footer class="guide-footer">
+        <div class="guide-item">➕ <strong>Follow</strong>: Tặng Nến Vàng</div>
+        <div class="guide-sep">•</div>
+        <div class="guide-item">💬 <strong>Gõ 1, 2, 3</strong>: Nhận Thông Điệp Riêng</div>
+        <div class="guide-sep">•</div>
+        <div class="guide-item">❤️ <strong>Thả tim</strong>: Rung Chuông</div>
+        <div class="guide-sep">•</div>
+        <div class="guide-item">🌹 <strong>Tặng Quà</strong>: Ghim Ngôi VIP Đỉnh Màn Hình</div>
+      </footer>
+    </section>
+
+    <button id="audio-unlock-btn" class="audio-unlock-btn">
+      🔊 Bấm vào đây 1 lần để bật Nhạc Thánh Đường & Giọng Đọc AI
+    </button>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

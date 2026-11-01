@@ -1,0 +1,16 @@
+{
+  "name": "tiktok-sanctuary-live",
+  "version": "1.0.0",
+  "description": "Interactive TikTok Livestream Tool - Nha Tho Online / Thap Nen Cau Nguyen 24/7",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "node --test tests/state.test.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "google-tts-api": "^2.0.2",
+    "socket.io": "^4.7.5",
+    "tiktok-live-connector": "^2.5.0"
+  }
+}
